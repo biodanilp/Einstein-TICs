@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retos Matemáticos con TIC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .container {
+            margin: 20px;
+            padding: 20px;
+        }
+        .reto {
+            background-color: white;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px;
+            text-align: left;
+            max-width: 600px;
+            display: inline-block;
+        }
+        .reto h3 {
+            color: #007bff;
+        }
+        .boton {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .boton:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>📚 Retos Matemáticos con TIC 🎮</header>
+
+<div class="container">
+    <h2>Bienvenidos a nuestra página de retos matemáticos</h2>
+    <p>Aprende y diviértete con nuestras actividades interactivas diseñadas para fortalecer tus habilidades en suma, resta, multiplicación y división.</p>
+
+    <!-- Reto 1 -->
+    <div class="reto">
+        <h3>🔢 Reto 1: Suma y Construye</h3>
+        <p>Resuelve problemas de suma en una plataforma interactiva y construye estructuras con bloques.</p>
+        <a class="boton" href="#">Jugar</a>
+    </div>
+
+    <!-- Reto 2 -->
+    <div class="reto">
+        <h3>🏴‍☠️ Reto 2: Rescata el Tesoro Perdido</h3>
+        <p>Usa tus habilidades de resta para obtener pistas y encontrar el tesoro escondido.</p>
+        <a class="boton" href="#">Jugar</a>
+    </div>
+
+    <!-- Reto 3 -->
+    <div class="reto">
+        <h3>🚀 Reto 3: Carrera de Multiplicaciones</h3>
+        <p>Compite en equipos para resolver preguntas de multiplicación en plataformas como Kahoot.</p>
+        <a class="boton" href="https://kahoot.com/" target="_blank">Ir a Kahoot</a>
+    </div>
+
+    <!-- Reto 4 -->
+    <div class="reto">
+        <h3>🎭 Reto 4: Encuentra mi Pareja de División</h3>
+        <p>Resuelve problemas de división en una plataforma digital y encuentra la tarjeta correcta.</p>
+        <a class="boton" href="#">Jugar</a>
+    </div>
+
+    <!-- Reto 5 -->
+    <div class="reto">
+        <h3>🛒 Reto 5: ¡Vamos de Compras!</h3>
+        <p>Resuelve problemas matemáticos sobre compras y recibe retroalimentación en tiempo real.</p>
+        <a class="boton" href="#">Jugar</a>
+    </div>
+
+    <!-- Reto 6 -->
+    <div class="reto">
+        <h3>⚔️ Reto 6: Batalla de Matemáticas</h3>
+        <p>Compite resolviendo multiplicaciones y divisiones en tiempo real en Quizizz.</p>
+        <a class="boton" href="https://quizizz.com/" target="_blank">Ir a Quizizz</a>
+    </div>
+
+    <!-- Reto 7 -->
+    <div class="reto">
+        <h3>🎲 Reto 7: Matemáticas en Acción</h3>
+        <p>Participa en diferentes estaciones de juego donde aprenderás operaciones básicas.</p>
+        <a class="boton" href="#">Jugar</a>
+    </div>
+</div>
+
+<footer>📍 Creado para el aprendizaje de matemáticas con TIC - Institución Educativa Santa Lucía</footer>
+
+</body>
+</html>
