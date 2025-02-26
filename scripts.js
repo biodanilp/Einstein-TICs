@@ -56,12 +56,12 @@ function verificarRespuesta(tipo) {
         mensajeAciertos.innerText = `Aciertos: ${contadoresAciertos[tipo]}/3`;
 
         if (contadoresAciertos[tipo] === 3) {
-            mostrarRecompensa(tipo);
+            mostrarRecompensa(tipo); // Mostrar recompensa solo después de 3 aciertos
             contadoresAciertos[tipo] = 0; // Reiniciar contador
             mensajeAciertos.innerText = ""; // Limpiar mensaje
             document.getElementById(`juego${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).style.display = "none"; // Ocultar juego
         } else {
-            mostrarEjercicio(tipo);
+            mostrarEjercicio(tipo); // Mostrar siguiente ejercicio
         }
     } else {
         resultado.innerHTML = "❌ Inténtalo de nuevo.";
