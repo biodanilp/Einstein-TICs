@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retos Matemáticos con TIC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>📚 Retos Matemáticos con TIC 🎮</h1>
+    </header>
+
+    <main class="container">
+        <h2>¡Desafía tu mente con estos retos matemáticos!</h2>
+
+        <!-- Reto 1: Suma -->
+        <section class="reto">
+            <h3>🏗️ Reto 1: Suma y Construye</h3>
+            <p>Resuelve problemas de suma y construye un edificio.</p>
+            <button class="boton" onclick="iniciarJuego('suma')">Jugar</button>
+            <div id="juegoSuma" class="juego">
+                <p id="preguntaSuma"></p>
+                <input type="number" id="respuestaSuma" aria-label="Respuesta de suma">
+                <button onclick="verificarRespuesta('suma')">Verificar</button>
+                <p id="resultadoSuma"></p>
+                <p class="mensaje-aciertos" id="mensajeAciertosSuma"></p>
+            </div>
+        </section>
+
+        <!-- Reto 2: Resta -->
+        <section class="reto">
+            <h3>🏴‍☠️ Reto 2: Rescata el Tesoro Perdido</h3>
+            <p>Resuelve restas para ayudar al pirata a encontrar su tesoro.</p>
+            <button class="boton" onclick="iniciarJuego('resta')">Jugar</button>
+            <div id="juegoResta" class="juego">
+                <p id="preguntaResta"></p>
+                <input type="number" id="respuestaResta" aria-label="Respuesta de resta">
+                <button onclick="verificarRespuesta('resta')">Verificar</button>
+                <p id="resultadoResta"></p>
+                <p class="mensaje-aciertos" id="mensajeAciertosResta"></p>
+            </div>
+        </section>
+
+        <!-- Reto 3: Multiplicación -->
+        <section class="reto">
+            <h3>🚀 Reto 3: Carrera de Multiplicaciones</h3>
+            <p>Resuelve multiplicaciones y avanza en la carrera.</p>
+            <button class="boton" onclick="iniciarJuego('multiplicacion')">Jugar</button>
+            <div id="juegoMultiplicacion" class="juego">
+                <p id="preguntaMultiplicacion"></p>
+                <input type="number" id="respuestaMultiplicacion" aria-label="Respuesta de multiplicación">
+                <button onclick="verificarRespuesta('multiplicacion')">Verificar</button>
+                <p id="resultadoMultiplicacion"></p>
+                <p class="mensaje-aciertos" id="mensajeAciertosMultiplicacion"></p>
+            </div>
+        </section>
+
+        <!-- Reto 4: División -->
+        <section class="reto">
+            <h3>🎭 Reto 4: Encuentra mi Pareja de División</h3>
+            <p>Resuelve problemas de división y encuentra la respuesta correcta.</p>
+            <button class="boton" onclick="iniciarJuego('division')">Jugar</button>
+            <div id="juegoDivision" class="juego">
+                <p id="preguntaDivision"></p>
+                <input type="number" id="respuestaDivision" aria-label="Respuesta de división">
+                <button onclick="verificarRespuesta('division')">Verificar</button>
+                <p id="resultadoDivision"></p>
+                <p class="mensaje-aciertos" id="mensajeAciertosDivision"></p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Recompensas -->
+    <div id="recompensaSuma" class="recompensa">
+        <div class="juego-recompensa">
+            <h3>🏗️ ¡Edificio Completado!</h3>
+            <div class="construccion" id="construccionEdificio"></div>
+        </div>
+    </div>
+
+    <div id="recompensaResta" class="recompensa">
+        <div class="juego-recompensa">
+            <h3>🏴‍☠️ ¡Tesoro Encontrado!</h3>
+            <div class="laberinto" id="laberintoPirata"></div>
+        </div>
+    </div>
+
+    <div id="recompensaMultiplicacion" class="recompensa">
+        <div class="juego-recompensa">
+            <h3>🚀 ¡Carrera Ganada!</h3>
+            <div class="carrera">
+                <div class="nave" id="naveCarrera"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="recompensaDivision" class="recompensa">
+        <div class="juego-recompensa">
+            <h3>🎭 ¡Parejas Encontradas!</h3>
+            <div class="memoria" id="memoriaDivision"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>📍 Creado para el aprendizaje de matemáticas con TIC - Institución Educativa Santa Lucía</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
