@@ -43,6 +43,19 @@ function mostrarEjercicio(tipo) {
     document.getElementById(`pregunta${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).innerText = bancoEjercicios[tipo][index].pregunta;
 }
 
+// Construir el edificio progresivamente
+function construirEdificio(pisos) {
+    const construccion = document.getElementById("construccionEdificio");
+    construccion.innerHTML = ""; // Limpiar el edificio anterior
+
+    for (let i = 0; i < pisos; i++) {
+        const bloque = document.createElement("div");
+        bloque.className = "bloque";
+        bloque.style.bottom = `${i * 30}px`; // Espaciado entre pisos
+        construccion.appendChild(bloque);
+    }
+}
+
 // Verificar la respuesta del usuario
 function verificarRespuesta(tipo) {
     let input = document.getElementById(`respuesta${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`);
@@ -54,6 +67,11 @@ function verificarRespuesta(tipo) {
         resultado.innerHTML = "✅ ¡Correcto!";
         contadoresAciertos[tipo]++;
         mensajeAciertos.innerText = `Aciertos: ${contadoresAciertos[tipo]}/3`;
+
+        // Construir el edificio progresivamente en el reto de suma
+        if (tipo === "suma") {
+            construirEdificio(contadoresAciertos[tipo]);
+        }
 
         if (contadoresAciertos[tipo] === 3) {
             mostrarRecompensa(tipo); // Mostrar recompensa solo después de 3 aciertos
@@ -67,6 +85,11 @@ function verificarRespuesta(tipo) {
         resultado.innerHTML = "❌ Inténtalo de nuevo.";
         contadoresAciertos[tipo] = 0; // Reiniciar contador
         mensajeAciertos.innerText = ""; // Limpiar mensaje
+
+        // Reiniciar el edificio si el usuario falla
+        if (tipo === "suma") {
+            construirEdificio(0); // Limpiar el edificio
+        }
     }
     input.value = ""; // Limpiar el campo de entrada
 }
@@ -85,16 +108,12 @@ function mostrarConstruccion() {
     const construccion = document.getElementById("construccionEdificio");
     recompensa.style.display = "flex";
 
-    for (let i = 0; i < 10; i++) {
-        const bloque = document.createElement("div");
-        bloque.className = "bloque";
-        bloque.style.bottom = `${i * 20}px`;
-        construccion.appendChild(bloque);
-    }
+    // Construir el edificio completo (3 pisos) como recompensa
+    construirEdificio(3);
 
     setTimeout(() => {
         recompensa.style.display = "none";
-        construccion.innerHTML = "";
+        construccion.innerHTML = ""; // Limpiar el edificio
     }, 3000);
 }
 
