@@ -1,0 +1,232 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 20px;
+    font-size: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    margin: 20px;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.reto {
+    background-color: white;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px auto;
+    max-width: 600px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.reto:hover {
+    transform: scale(1.05);
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.reto h3 {
+    color: #007bff;
+    margin-top: 0;
+}
+
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+.juego {
+    display: none;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+input {
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.mensaje-aciertos {
+    font-weight: bold;
+    color: #007bff;
+    margin-top: 10px;
+}
+
+/* Estilos para las recompensas */
+.recompensa {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.juego-recompensa {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Juego de construcción (Suma) */
+.construccion {
+    width: 200px;
+    height: 300px;
+    background: #ccc;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bloque {
+    width: 100%;
+    height: 20px;
+    background: #007bff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: bottom 0.5s;
+}
+
+/* Juego de laberinto (Resta) */
+.laberinto {
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 5px;
+    margin: 0 auto;
+}
+
+.laberinto .celda {
+    width: 50px;
+    height: 50px;
+    background: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.laberinto .celda.activa {
+    background: #28a745;
+}
+
+/* Juego de carrera (Multiplicación) */
+.carrera {
+    width: 100%;
+    height: 100px;
+    background: #000;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carrera .nave {
+    width: 50px;
+    height: 50px;
+    background: #007bff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transition: left 0.5s;
+    border-radius: 5px;
+}
+
+/* Juego de memoria (División) */
+.memoria {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.memoria .carta {
+    width: 100px;
+    height: 100px;
+    background: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.memoria .carta.volteada {
+    background: #28a745;
+    transform: rotateY(180deg);
+}
+
+footer {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
