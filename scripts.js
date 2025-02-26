@@ -27,6 +27,12 @@ function generarBancoEjercicios() {
 
 // Iniciar un juego
 function iniciarJuego(tipo) {
+    // Ocultar todos los juegos primero
+    document.querySelectorAll('.juego').forEach(juego => {
+        juego.style.display = 'none';
+    });
+
+    // Mostrar el juego correspondiente
     document.getElementById(`juego${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).style.display = "block";
     mostrarEjercicio(tipo);
 }
@@ -51,16 +57,18 @@ function verificarRespuesta(tipo) {
 
         if (contadoresAciertos[tipo] === 3) {
             mostrarRecompensa(tipo);
-            contadoresAciertos[tipo] = 0;
-            mensajeAciertos.innerText = "";
+            contadoresAciertos[tipo] = 0; // Reiniciar contador
+            mensajeAciertos.innerText = ""; // Limpiar mensaje
+            document.getElementById(`juego${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).style.display = "none"; // Ocultar juego
         } else {
             mostrarEjercicio(tipo);
         }
     } else {
         resultado.innerHTML = "❌ Inténtalo de nuevo.";
-        contadoresAciertos[tipo] = 0;
-        mensajeAciertos.innerText = "";
+        contadoresAciertos[tipo] = 0; // Reiniciar contador
+        mensajeAciertos.innerText = ""; // Limpiar mensaje
     }
+    input.value = ""; // Limpiar el campo de entrada
 }
 
 // Mostrar recompensa según el tipo de juego
@@ -90,7 +98,96 @@ function mostrarConstruccion() {
     }, 3000);
 }
 
-// ... (resto de las funciones de recompensas) ...
+function mostrarLaberinto() {
+    const recompensa = document.getElementById("recompensaResta");
+    const laberinto = document.getElementById("laberintoPirata");
+    recompensa.style.display = "flex";
+
+    for (let i = 0; i < 25; i++) {
+        const celda = document.createElement("div");
+        celda.className = "celda";
+        celda.innerText = i % 5 === 0 ? "🚩" : "";
+        laberinto.appendChild(celda);
+    }
+
+    setTimeout(() => {
+        recompensa.style.display = "none";
+        laberinto.innerHTML = "";
+    }, 3000);
+}
+
+function mostrarCarrera() {
+    const recompensa = document.getElementById("recompensaMultiplicacion");
+    const nave = document.getElementById("naveCarrera");
+    recompensa.style.display = "flex";
+
+    let posicion = 0;
+    const intervalo = setInterval(() => {
+        posicion += 10;
+        nave.style.left = `${posicion}px`;
+        if (posicion >= 300) {
+            clearInterval(intervalo);
+            setTimeout(() => {
+                recompensa.style.display = "none";
+                nave.style.left = "0";
+            }, 1000);
+        }
+    }, 100);
+}
+
+function mostrarMemoria() {
+    const recompensa = document.getElementById("recompensaDivision");
+    const memoria = document.getElementById("memoriaDivision");
+    recompensa.style.display = "flex";
+
+    const cartas = [1, 2, 3, 4, 1, 2, 3, 4];
+    cartas.sort(() => Math.random() - 0.5);
+
+    cartas.forEach((valor, index) => {
+        const carta = document.createElement("div");
+        carta.className = "carta";
+        carta.dataset.valor = valor;
+        carta.dataset.index = index;
+        carta.innerText = "?";
+        carta.addEventListener("click", voltearCarta);
+        memoria.appendChild(carta);
+    });
+}
+
+let cartasVolteadas = [];
+function voltearCarta(event) {
+    const carta = event.target;
+    if (cartasVolteadas.length < 2 && !carta.classList.contains("volteada")) {
+        carta.innerText = carta.dataset.valor;
+        carta.classList.add("volteada");
+        cartasVolteadas.push(carta);
+
+        if (cartasVolteadas.length === 2) {
+            verificarPareja();
+        }
+    }
+}
+
+function verificarPareja() {
+    const [carta1, carta2] = cartasVolteadas;
+    if (carta1.dataset.valor === carta2.dataset.valor) {
+        cartasVolteadas = [];
+        if (document.querySelectorAll(".carta.volteada").length === 8) {
+            setTimeout(() => {
+                alert("¡Felicidades! Has encontrado todas las parejas.");
+                document.getElementById("recompensaDivision").style.display = "none";
+            }, 500);
+        }
+    } else {
+        setTimeout(() => {
+            carta1.innerText = "?";
+            carta2.innerText = "?";
+            carta1.classList.remove("volteada");
+            carta2.classList.remove("volteada");
+            cartasVolteadas = [];
+        }, 1000);
+    }
+}
 
 // Generar ejercicios al cargar la página
 generarBancoEjercicios();
