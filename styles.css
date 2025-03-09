@@ -128,34 +128,88 @@ button:hover {
 .construccion {
     width: 200px;
     height: 300px;
-    background: #ccc;
+    background-image: linear-gradient(0deg, #8bc34a 0%, #8bc34a 20%, #87ceeb 20%, #87ceeb 100%);
     margin: 0 auto;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
 }
 
-.bloque {
-    width: 100%;
-    height: 30px; /* Altura de cada piso */
-    background: #007bff;
+.edificio-base {
+    width: 160px;
+    height: 20px;
+    background: #795548;
     position: absolute;
     bottom: 0;
-    left: 0;
-    transition: bottom 0.5s ease-in-out;
-    border: 1px solid #0056b3; /* Borde para separar los pisos */
+    left: 20px;
+    border-radius: 5px 5px 0 0;
 }
 
-/* Animación para mostrar los pisos */
-@keyframes aparecer {
+.bloque {
+    width: 140px;
+    height: 40px;
+    background: #f44336;
+    position: absolute;
+    left: 30px;
+    border-radius: 2px;
+    transform: translateY(100px);
+    animation: caerBloque 0.5s forwards;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ventana {
+    width: 20px;
+    height: 25px;
+    background: #ffeb3b;
+    border: 2px solid #795548;
+    border-radius: 3px;
+    opacity: 0;
+    animation: iluminar 0.5s 0.3s forwards;
+}
+
+.techo {
+    width: 160px;
+    height: 30px;
+    background: #795548;
+    position: absolute;
+    left: 20px;
+    border-radius: 50% 50% 0 0;
+    transform: translateY(100px);
+    animation: caerBloque 0.5s forwards;
+}
+
+.confeti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    border-radius: 50%;
+    animation: caerConfeti linear forwards;
+    z-index: 1001;
+}
+
+@keyframes caerBloque {
+    from { transform: translateY(100px); }
+    to { transform: translateY(0); }
+}
+
+@keyframes iluminar {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-.bloque {
-    animation: aparecer 0.5s ease-in-out;
+@keyframes caerConfeti {
+    from { 
+        top: -10px;
+        transform: rotate(0deg);
+    }
+    to { 
+        top: 100%;
+        transform: rotate(360deg);
+    }
 }
-
 /* Juego de laberinto (Resta) */
 .laberinto {
     display: grid;
