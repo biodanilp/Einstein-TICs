@@ -107,16 +107,71 @@ function mostrarConstruccion() {
     const recompensa = document.getElementById("recompensaSuma");
     const construccion = document.getElementById("construccionEdificio");
     recompensa.style.display = "flex";
-
-    // Construir el edificio completo (3 pisos) como recompensa
-    construirEdificio(3);
+    construccion.innerHTML = "";
+    
+    // Crear base del edificio
+    const base = document.createElement("div");
+    base.className = "edificio-base";
+    construccion.appendChild(base);
+    
+    // Añadir bloques con animación secuencial
+    const totalBloques = 5;
+    
+    for (let i = 0; i < totalBloques; i++) {
+        setTimeout(() => {
+            const bloque = document.createElement("div");
+            bloque.className = "bloque";
+            bloque.style.bottom = `${i * 40 + 20}px`;
+            
+            // Añadir ventanas al bloque
+            for (let j = 0; j < 3; j++) {
+                const ventana = document.createElement("div");
+                ventana.className = "ventana";
+                ventana.style.left = `${j * 30 + 25}px`;
+                bloque.appendChild(ventana);
+            }
+            
+            construccion.appendChild(bloque);
+            
+            // Reproducir sonido
+            const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
+            sonido.volume = 0.2;
+            sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
+            
+            // Añadir techo al final
+            if (i === totalBloques - 1) {
+                setTimeout(() => {
+                    const techo = document.createElement("div");
+                    techo.className = "techo";
+                    techo.style.bottom = `${totalBloques * 40 + 20}px`;
+                    construccion.appendChild(techo);
+                    
+                    // Mostrar mensaje de felicitación con confeti
+                    mostrarConfeti();
+                }, 500);
+            }
+        }, i * 600);
+    }
 
     setTimeout(() => {
         recompensa.style.display = "none";
-        construccion.innerHTML = ""; // Limpiar el edificio
-    }, 3000);
+    }, 5000);
 }
 
+function mostrarConfeti() {
+    for (let i = 0; i < 50; i++) {
+        const confeti = document.createElement("div");
+        confeti.className = "confeti";
+        confeti.style.left = `${Math.random() * 100}%`;
+        confeti.style.animationDuration = `${Math.random() * 2 + 1}s`;
+        confeti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.body.appendChild(confeti);
+        
+        setTimeout(() => {
+            confeti.remove();
+        }, 3000);
+    }
+}
 function mostrarLaberinto() {
     const recompensa = document.getElementById("recompensaResta");
     const laberinto = document.getElementById("laberintoPirata");
