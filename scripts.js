@@ -134,7 +134,7 @@ function mostrarConstruccion() {
             construccion.appendChild(bloque);
             
             // Reproducir sonido
-            const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
+            const sonido = new Audio('https://pixabay.com/es/sound-effects/hammering-a-nail-245171/');
             sonido.volume = 0.2;
             sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
             
