@@ -458,6 +458,10 @@ function mostrarCarrera() {
     }
 }
 
+// Variables para el juego de memoria
+let cartasVolteadas = [];
+let paresEncontrados = 0;
+
 // Función para mostrar el juego de memoria (División)
 function mostrarMemoria() {
     const recompensa = document.getElementById("recompensaDivision");
@@ -517,10 +521,6 @@ function mostrarMemoria() {
     });
 }
 
-// Variables para el juego de memoria
-let cartasVolteadas = [];
-let paresEncontrados = 0;
-
 // Función para voltear una carta
 function voltearCarta() {
     // Si ya hay dos cartas volteadas, no hacer nada
@@ -553,11 +553,14 @@ function verificarPareja() {
         // Verificar si se han encontrado todos los pares
         if (paresEncontrados === 4) {
             setTimeout(() => {
+                // Reproducir sonido de victoria cuando se completa el juego
+                reproducirSonidoVictoria();
+                
                 mostrarCelebracion();
                 setTimeout(() => {
                     document.getElementById("recompensaDivision").style.display = "none";
                     paresEncontrados = 0;
-                }, 2000);
+                }, 3000);
             }, 500);
         }
     } else {
@@ -568,6 +571,13 @@ function verificarPareja() {
     
     // Limpiar el array de cartas volteadas
     cartasVolteadas = [];
+}
+
+// Función para reproducir sonido de victoria
+function reproducirSonidoVictoria() {
+    const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2020/2020-preview.mp3');
+    audio.volume = 0.7; // Volumen al 70%
+    audio.play().catch(e => console.log('Error al reproducir sonido de victoria:', e));
 }
 
 // Función para mostrar celebración al completar el juego
