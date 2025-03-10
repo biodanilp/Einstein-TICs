@@ -176,18 +176,150 @@ function mostrarLaberinto() {
     const recompensa = document.getElementById("recompensaResta");
     const laberinto = document.getElementById("laberintoPirata");
     recompensa.style.display = "flex";
-
-    for (let i = 0; i < 25; i++) {
-        const celda = document.createElement("div");
-        celda.className = "celda";
-        celda.innerText = i % 5 === 0 ? "🚩" : "";
-        laberinto.appendChild(celda);
+    laberinto.innerHTML = "";
+    
+    // Crear estructura del laberinto 5x5
+    const estructuraLaberinto = [
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1],
+        [1, 0, 1, 0, 1],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1]
+    ];
+    
+    // Definir posición inicial del pirata y del tesoro
+    const pirataPosInicial = { x: 1, y: 1 };
+    const tesoroPosicion = { x: 3, y: 3 };
+    let pirataPos = { ...pirataPosInicial };
+    
+    // Crear celdas del laberinto
+    for (let y = 0; y < 5; y++) {
+        for (let x = 0; x < 5; x++) {
+            const celda = document.createElement("div");
+            celda.className = "celda";
+            
+            // Asignar contenido a la celda según su posición
+            if (estructuraLaberinto[y][x] === 1) {
+                // Muro
+                celda.classList.add("muro");
+                celda.innerHTML = "🌊";
+            } else if (x === tesoroPosicion.x && y === tesoroPosicion.y) {
+                // Tesoro
+                celda.classList.add("tesoro");
+                celda.innerHTML = "💰";
+            } else if (x === pirataPosInicial.x && y === pirataPosInicial.y) {
+                // Pirata
+                celda.classList.add("pirata");
+                celda.id = "pirata";
+                celda.innerHTML = "🏴‍☠️";
+            } else {
+                // Camino
+                celda.classList.add("camino");
+                celda.innerHTML = "";
+            }
+            
+            laberinto.appendChild(celda);
+        }
     }
-
-    setTimeout(() => {
-        recompensa.style.display = "none";
-        laberinto.innerHTML = "";
-    }, 3000);
+    
+    // Añadir controles de navegación
+    const controles = document.createElement("div");
+    controles.className = "controles-laberinto";
+    
+    const arriba = document.createElement("button");
+    arriba.innerHTML = "↑";
+    arriba.onclick = () => moverPirata(0, -1);
+    
+    const abajo = document.createElement("button");
+    abajo.innerHTML = "↓";
+    abajo.onclick = () => moverPirata(0, 1);
+    
+    const izquierda = document.createElement("button");
+    izquierda.innerHTML = "←";
+    izquierda.onclick = () => moverPirata(-1, 0);
+    
+    const derecha = document.createElement("button");
+    derecha.innerHTML = "→";
+    derecha.onclick = () => moverPirata(1, 0);
+    
+    controles.appendChild(arriba);
+    controles.appendChild(izquierda);
+    controles.appendChild(abajo);
+    controles.appendChild(derecha);
+    
+    laberinto.appendChild(controles);
+    
+    // Función para mover al pirata
+    function moverPirata(dx, dy) {
+        const nuevaX = pirataPos.x + dx;
+        const nuevaY = pirataPos.y + dy;
+        
+        // Verificar que el movimiento sea válido
+        if (
+            nuevaX >= 0 && nuevaX < 5 && 
+            nuevaY >= 0 && nuevaY < 5 && 
+            estructuraLaberinto[nuevaY][nuevaX] !== 1
+        ) {
+            // Eliminar pirata de la posición anterior
+            const celdaAnterior = laberinto.children[pirataPos.y * 5 + pirataPos.x];
+            celdaAnterior.innerHTML = "";
+            celdaAnterior.classList.remove("pirata");
+            
+            // Actualizar posición
+            pirataPos = { x: nuevaX, y: nuevaY };
+            
+            // Colocar pirata en nueva posición
+            const nuevaCelda = laberinto.children[nuevaY * 5 + nuevaX];
+            nuevaCelda.classList.add("pirata");
+            nuevaCelda.innerHTML = "🏴‍☠️";
+            
+            // Verificar si llegó al tesoro
+            if (nuevaX === tesoroPosicion.x && nuevaY === tesoroPosicion.y) {
+                setTimeout(() => {
+                    celebrarTesoroEncontrado();
+                }, 500);
+            }
+        }
+    }
+    
+    function celebrarTesoroEncontrado() {
+        // Animación de celebración
+        const tesoroCelda = laberinto.children[tesoroPosicion.y * 5 + tesoroPosicion.x];
+        tesoroCelda.innerHTML = "🎉";
+        
+        // Crear mensaje de celebración
+        const mensaje = document.createElement("div");
+        mensaje.className = "mensaje-tesoro";
+        mensaje.innerHTML = "¡Tesoro encontrado!";
+        laberinto.appendChild(mensaje);
+        
+        // Sonido de celebración
+        const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/220/220-preview.mp3');
+        sonido.volume = 0.2;
+        sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
+        
+        // Mostrar monedas de oro como recompensa
+        mostrarMonedasOro();
+        
+        setTimeout(() => {
+            recompensa.style.display = "none";
+        }, 3000);
+    }
+    
+    function mostrarMonedasOro() {
+        for (let i = 0; i < 20; i++) {
+            const moneda = document.createElement("div");
+            moneda.className = "moneda-oro";
+            moneda.style.left = `${Math.random() * 100}%`;
+            moneda.style.top = `${Math.random() * 100}%`;
+            moneda.innerHTML = "💰";
+            recompensa.appendChild(moneda);
+            
+            setTimeout(() => {
+                moneda.remove();
+            }, 3000);
+        }
+    }
 }
 
 function mostrarCarrera() {
