@@ -410,7 +410,7 @@ function mostrarCarrera() {
         carrera.appendChild(mensaje);
         
         // Reproducir sonido de victoria
-        const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/1990/1990-preview.mp3');
+        const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/890/890-preview.mp3');
         sonido.volume = 0.2;
         sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
         
