@@ -324,21 +324,138 @@ function mostrarLaberinto() {
 
 function mostrarCarrera() {
     const recompensa = document.getElementById("recompensaMultiplicacion");
-    const nave = document.getElementById("naveCarrera");
+    const carrera = document.querySelector("#recompensaMultiplicacion .carrera");
     recompensa.style.display = "flex";
-
-    let posicion = 0;
-    const intervalo = setInterval(() => {
-        posicion += 10;
-        nave.style.left = `${posicion}px`;
-        if (posicion >= 300) {
-            clearInterval(intervalo);
-            setTimeout(() => {
-                recompensa.style.display = "none";
-                nave.style.left = "0";
-            }, 1000);
+    carrera.innerHTML = "";
+    
+    // Crear pista de carrera espacial
+    const pista = document.createElement("div");
+    pista.className = "pista-espacial";
+    carrera.appendChild(pista);
+    
+    // Crear nave del jugador
+    const naveJugador = document.createElement("div");
+    naveJugador.className = "nave-jugador";
+    naveJugador.innerHTML = "🚀";
+    pista.appendChild(naveJugador);
+    
+    // Crear nave rival
+    const naveRival = document.createElement("div");
+    naveRival.className = "nave-rival";
+    naveRival.innerHTML = "👾";
+    pista.appendChild(naveRival);
+    
+    // Crear estrellas de fondo
+    for (let i = 0; i < 50; i++) {
+        const estrella = document.createElement("div");
+        estrella.className = "estrella";
+        estrella.style.left = `${Math.random() * 100}%`;
+        estrella.style.top = `${Math.random() * 100}%`;
+        estrella.style.animationDuration = `${Math.random() * 3 + 1}s`;
+        pista.appendChild(estrella);
+    }
+    
+    // Línea de meta
+    const meta = document.createElement("div");
+    meta.className = "linea-meta";
+    pista.appendChild(meta);
+    
+    // Contador para la animación
+    let posicionNave = 0;
+    let posicionRival = 0;
+    const velocidadJugador = 2.5;
+    const velocidadRival = 2;
+    const distanciaMeta = 95;  // Porcentaje de la pista
+    
+    // Función de animación
+    function animarCarrera() {
+        posicionNave += velocidadJugador;
+        posicionRival += velocidadRival;
+        
+        naveJugador.style.left = `${posicionNave}%`;
+        naveRival.style.left = `${posicionRival}%`;
+        
+        // Verificar si alguna nave ha llegado a la meta
+        if (posicionNave >= distanciaMeta) {
+            clearInterval(animacionId);
+            celebrarVictoria();
         }
-    }, 100);
+        
+        // Crear efecto de propulsión para la nave
+        if (Math.random() > 0.7) {
+            const propulsion = document.createElement("div");
+            propulsion.className = "propulsion";
+            propulsion.style.left = `${posicionNave - 3}%`;
+            propulsion.style.top = `${parseInt(naveJugador.style.top) + 20}px`;
+            pista.appendChild(propulsion);
+            
+            setTimeout(() => {
+                propulsion.remove();
+            }, 500);
+        }
+    }
+    
+    // Iniciar animación
+    const animacionId = setInterval(animarCarrera, 50);
+    
+    // Función para celebrar la victoria
+    function celebrarVictoria() {
+        // Animar nave ganadora
+        naveJugador.classList.add("ganador");
+        
+        // Crear mensaje de victoria
+        const mensaje = document.createElement("div");
+        mensaje.className = "mensaje-victoria";
+        mensaje.innerHTML = "¡Has ganado la carrera!";
+        carrera.appendChild(mensaje);
+        
+        // Reproducir sonido de victoria
+        const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/1990/1990-preview.mp3');
+        sonido.volume = 0.2;
+        sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
+        
+        // Mostrar fuegos artificiales
+        lanzarFuegosArtificiales();
+        
+        setTimeout(() => {
+            recompensa.style.display = "none";
+        }, 4000);
+    }
+    
+    function lanzarFuegosArtificiales() {
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                const fuego = document.createElement("div");
+                fuego.className = "fuego-artificial";
+                fuego.style.left = `${Math.random() * 100}%`;
+                fuego.style.top = `${Math.random() * 40 + 10}%`;
+                
+                const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                fuego.style.backgroundColor = color;
+                
+                carrera.appendChild(fuego);
+                
+                setTimeout(() => {
+                    fuego.remove();
+                    
+                    // Crear explosión
+                    for (let j = 0; j < 20; j++) {
+                        const particula = document.createElement("div");
+                        particula.className = "particula";
+                        particula.style.left = fuego.style.left;
+                        particula.style.top = fuego.style.top;
+                        particula.style.backgroundColor = color;
+                        particula.style.transform = `rotate(${j * 18}deg)`;
+                        carrera.appendChild(particula);
+                        
+                        setTimeout(() => {
+                            particula.remove();
+                        }, 1000);
+                    }
+                }, 500);
+            }, i * 300);
+        }
+    }
 }
 
 function mostrarMemoria() {
