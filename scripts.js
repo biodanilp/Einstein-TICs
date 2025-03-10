@@ -134,7 +134,7 @@ function mostrarConstruccion() {
             construccion.appendChild(bloque);
             
             // Reproducir sonido
-            const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/210/210-preview.mp3');
+            const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/211/211-preview.mp3');
             sonido.volume = 0.2;
             sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
             
