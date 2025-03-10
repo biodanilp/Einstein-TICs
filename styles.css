@@ -337,26 +337,137 @@ button:hover {
     to { transform: rotateY(360deg); }
 }
 
-/* Juego de carrera (Multiplicación) */
+/* Estilos para el juego de carrera espacial */
 .carrera {
     width: 100%;
-    height: 100px;
-    background: #000;
-    margin: 0 auto;
+    height: 300px;
     position: relative;
-    border-radius: 10px;
+    margin: 0 auto;
     overflow: hidden;
 }
 
-.carrera .nave {
-    width: 50px;
-    height: 50px;
-    background: #007bff;
+.pista-espacial {
+    width: 100%;
+    height: 100%;
+    background-color: #000033;
+    position: relative;
+    overflow: hidden;
+}
+
+.nave-jugador {
     position: absolute;
-    left: 0;
-    bottom: 0;
-    transition: left 0.5s;
-    border-radius: 5px;
+    font-size: 40px;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.nave-rival {
+    position: absolute;
+    font-size: 40px;
+    top: 70%;
+    left: 5%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.estrella {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    border-radius: 50%;
+    animation: parpadearEstrella infinite alternate;
+}
+
+.linea-meta {
+    position: absolute;
+    top: 0;
+    left: 95%;
+    width: 5px;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        black,
+        black 10px,
+        yellow 10px,
+        yellow 20px
+    );
+}
+
+.propulsion {
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    background: linear-gradient(to left, red, orange, yellow);
+    border-radius: 50%;
+    animation: desvanecerPropulsion 0.5s forwards;
+}
+
+.nave-jugador.ganador {
+    animation: celebrarGanador 1s infinite alternate;
+}
+
+.mensaje-victoria {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 215, 0, 0.8);
+    color: #000;
+    padding: 15px 30px;
+    border-radius: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    animation: aparecer 0.5s forwards;
+    z-index: 100;
+}
+
+.fuego-artificial {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: lanzarFuego 0.5s forwards;
+}
+
+.particula {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    animation: expandirParticula 1s forwards;
+}
+
+@keyframes parpadearEstrella {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+}
+
+@keyframes desvanecerPropulsion {
+    from { opacity: 1; width: 15px; }
+    to { opacity: 0; width: 5px; }
+}
+
+@keyframes celebrarGanador {
+    from { transform: translateY(-50%) rotate(0deg) scale(1); }
+    to { transform: translateY(-50%) rotate(10deg) scale(1.2); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translate(-50%, -80%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes lanzarFuego {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-50px) scale(1.5); }
+}
+
+@keyframes expandirParticula {
+    0% { transform: rotate(0deg) translateX(0px); opacity: 1; }
+    100% { transform: rotate(0deg) translateX(50px); opacity: 0; }
 }
 
 /* Juego de memoria (División) */
