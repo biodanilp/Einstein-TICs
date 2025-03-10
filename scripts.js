@@ -458,58 +458,137 @@ function mostrarCarrera() {
     }
 }
 
+// Función para mostrar el juego de memoria (División)
 function mostrarMemoria() {
     const recompensa = document.getElementById("recompensaDivision");
     const memoria = document.getElementById("memoriaDivision");
     recompensa.style.display = "flex";
-
-    const cartas = [1, 2, 3, 4, 1, 2, 3, 4];
-    cartas.sort(() => Math.random() - 0.5);
-
-    cartas.forEach((valor, index) => {
+    memoria.innerHTML = "";
+    
+    // Crear pares de divisiones y resultados
+    const pares = [];
+    for (let i = 1; i <= 4; i++) {
+        const divisor = Math.floor(Math.random() * 5) + 1;
+        const resultado = i;
+        const dividendo = divisor * resultado;
+        
+        // Añadir la operación y su resultado como un par
+        pares.push({
+            id: i,
+            tipo: 'operacion',
+            valor: `${dividendo} ÷ ${divisor}`,
+            pareja: i
+        });
+        
+        pares.push({
+            id: i + 4,
+            tipo: 'resultado',
+            valor: `${resultado}`,
+            pareja: i
+        });
+    }
+    
+    // Barajar los pares
+    const paresBarajados = pares.sort(() => Math.random() - 0.5);
+    
+    // Crear las cartas en el DOM
+    paresBarajados.forEach(par => {
         const carta = document.createElement("div");
         carta.className = "carta";
-        carta.dataset.valor = valor;
-        carta.dataset.index = index;
-        carta.innerText = "?";
+        carta.dataset.id = par.id;
+        carta.dataset.pareja = par.pareja;
+        
+        // El contenido se mostrará al voltear
+        const contenidoFrente = document.createElement("div");
+        contenidoFrente.className = "contenido frente";
+        contenidoFrente.innerHTML = "?";
+        
+        const contenidoReverso = document.createElement("div");
+        contenidoReverso.className = "contenido reverso";
+        contenidoReverso.innerHTML = par.valor;
+        
+        carta.appendChild(contenidoFrente);
+        carta.appendChild(contenidoReverso);
+        
+        // Añadir evento de clic
         carta.addEventListener("click", voltearCarta);
+        
         memoria.appendChild(carta);
     });
 }
 
+// Variables para el juego de memoria
 let cartasVolteadas = [];
-function voltearCarta(event) {
-    const carta = event.target;
-    if (cartasVolteadas.length < 2 && !carta.classList.contains("volteada")) {
-        carta.innerText = carta.dataset.valor;
-        carta.classList.add("volteada");
-        cartasVolteadas.push(carta);
+let paresEncontrados = 0;
 
-        if (cartasVolteadas.length === 2) {
-            verificarPareja();
-        }
+// Función para voltear una carta
+function voltearCarta() {
+    // Si ya hay dos cartas volteadas, no hacer nada
+    if (cartasVolteadas.length >= 2) return;
+    
+    // Si la carta ya está volteada, no hacer nada
+    if (this.classList.contains("volteada")) return;
+    
+    // Voltear la carta
+    this.classList.add("volteada");
+    cartasVolteadas.push(this);
+    
+    // Si hay dos cartas volteadas, verificar si son pareja
+    if (cartasVolteadas.length === 2) {
+        setTimeout(verificarPareja, 1000);
     }
 }
 
+// Función para verificar si las cartas volteadas son pareja
 function verificarPareja() {
-    const [carta1, carta2] = cartasVolteadas;
-    if (carta1.dataset.valor === carta2.dataset.valor) {
-        cartasVolteadas = [];
-        if (document.querySelectorAll(".carta.volteada").length === 8) {
+    const carta1 = cartasVolteadas[0];
+    const carta2 = cartasVolteadas[1];
+    
+    // Si las cartas tienen la misma pareja, mantenerlas volteadas
+    if (carta1.dataset.pareja === carta2.dataset.pareja) {
+        carta1.classList.add("encontrada");
+        carta2.classList.add("encontrada");
+        paresEncontrados++;
+        
+        // Verificar si se han encontrado todos los pares
+        if (paresEncontrados === 4) {
             setTimeout(() => {
-                alert("¡Felicidades! Has encontrado todas las parejas.");
-                document.getElementById("recompensaDivision").style.display = "none";
+                mostrarCelebracion();
+                setTimeout(() => {
+                    document.getElementById("recompensaDivision").style.display = "none";
+                    paresEncontrados = 0;
+                }, 2000);
             }, 500);
         }
     } else {
-        setTimeout(() => {
-            carta1.innerText = "?";
-            carta2.innerText = "?";
-            carta1.classList.remove("volteada");
-            carta2.classList.remove("volteada");
-            cartasVolteadas = [];
-        }, 1000);
+        // Si no son pareja, voltearlas de nuevo
+        carta1.classList.remove("volteada");
+        carta2.classList.remove("volteada");
     }
+    
+    // Limpiar el array de cartas volteadas
+    cartasVolteadas = [];
+}
+
+// Función para mostrar celebración al completar el juego
+function mostrarCelebracion() {
+    const memoria = document.getElementById("memoriaDivision");
+    
+    // Crear efecto de celebración
+    for (let i = 0; i < 50; i++) {
+        const confeti = document.createElement("div");
+        confeti.className = "confeti";
+        confeti.style.left = `${Math.random() * 100}%`;
+        confeti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        confeti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        memoria.appendChild(confeti);
+    }
+    
+    // Mensaje de felicitación
+    const mensaje = document.createElement("div");
+    mensaje.className = "mensaje-celebracion";
+    mensaje.textContent = "¡Felicidades! ¡Has encontrado todas las parejas!";
+    memoria.appendChild(mensaje);
 }
 
 // Generar ejercicios al cargar la página
