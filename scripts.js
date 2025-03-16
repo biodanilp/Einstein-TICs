@@ -423,17 +423,18 @@ function mostrarCarrera() {
     // Mostrar fuegos artificiales
     lanzarFuegosArtificiales();
     
-    // Añadir mensaje de recompensa
+    // Añadir mensaje de recompensa - Cambio importante aquí
     setTimeout(() => {
         const mensajeRecompensa = document.createElement("div");
         mensajeRecompensa.className = "mensaje-recompensa";
         mensajeRecompensa.innerHTML = "¡Asombroso! Has completado este desafío con éxito. Corre a reclamar tu obsequio con Selenne y regresa listo para enfrentar el último reto";
-        carrera.appendChild(mensajeRecompensa);
-    }, 1500);
+        // Añadimos el mensaje al contenedor padre de la carrera (recompensaMultiplicacion)
+        document.getElementById("recompensaMultiplicacion").appendChild(mensajeRecompensa);
+    }, 15000);
     
     setTimeout(() => {
         recompensa.style.display = "none";
-    }, 30000); // Aumentado para dar tiempo a leer el mensaje
+    }, 30000);
 }
     
     function lanzarFuegosArtificiales() {
