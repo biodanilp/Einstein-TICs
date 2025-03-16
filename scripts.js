@@ -412,7 +412,7 @@ function mostrarCarrera() {
     // Crear mensaje de victoria
     const mensaje = document.createElement("div");
     mensaje.className = "mensaje-victoria";
-    mensaje.innerHTML = "¡Has ganado la carrera!";
+    mensaje.innerHTML = "¡Has ganado la carrera! Has completado este desafío con éxito. Corre a reclamar tu obsequio con Selenne y regresa listo para enfrentar el último reto";
     carrera.appendChild(mensaje);
     
     // Reproducir sonido de victoria
