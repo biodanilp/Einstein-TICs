@@ -148,6 +148,11 @@ function mostrarConstruccion() {
                     
                     // Mostrar mensaje de felicitación con confeti
                     mostrarConfeti();
+                    // Añadir mensaje personalizado
+                    const mensaje = document.createElement("div");
+                    mensaje.className = "mensaje-personalizado";
+                    mensaje.textContent = "¡Increíble! Has construido un magnífico edificio. Ahora, ve con Andrea para reclamar un delicioso caramelo y prepárate para enfrentar nuevos retos";
+                    recompensa.appendChild(mensaje);
                 }, 500);
             }
         }, i * 600);
