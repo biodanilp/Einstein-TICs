@@ -405,29 +405,36 @@ function mostrarCarrera() {
     // Iniciar animación
     const animacionId = setInterval(animarCarrera, 50);
     
-    // Función para celebrar la victoria
-    function celebrarVictoria() {
-        // Animar nave ganadora
-        naveJugador.classList.add("ganador");
-        
-        // Crear mensaje de victoria
-        const mensaje = document.createElement("div");
-        mensaje.className = "mensaje-victoria";
-        mensaje.innerHTML = "¡Has ganado la carrera!";
-        carrera.appendChild(mensaje);
-        
-        // Reproducir sonido de victoria
-        const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/890/890-preview.mp3');
-        sonido.volume = 0.2;
-        sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
-        
-        // Mostrar fuegos artificiales
-        lanzarFuegosArtificiales();
-        
-        setTimeout(() => {
-            recompensa.style.display = "none";
-        }, 4000);
-    }
+   function celebrarVictoria() {
+    // Animar nave ganadora
+    naveJugador.classList.add("ganador");
+    
+    // Crear mensaje de victoria
+    const mensaje = document.createElement("div");
+    mensaje.className = "mensaje-victoria";
+    mensaje.innerHTML = "¡Has ganado la carrera!";
+    carrera.appendChild(mensaje);
+    
+    // Reproducir sonido de victoria
+    const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/890/890-preview.mp3');
+    sonido.volume = 0.2;
+    sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
+    
+    // Mostrar fuegos artificiales
+    lanzarFuegosArtificiales();
+    
+    // Añadir mensaje de recompensa
+    setTimeout(() => {
+        const mensajeRecompensa = document.createElement("div");
+        mensajeRecompensa.className = "mensaje-recompensa";
+        mensajeRecompensa.innerHTML = "¡Asombroso! Has completado este desafío con éxito. Corre a reclamar tu obsequio con Selenne y regresa listo para enfrentar el último reto";
+        carrera.appendChild(mensajeRecompensa);
+    }, 1500);
+    
+    setTimeout(() => {
+        recompensa.style.display = "none";
+    }, 6000); // Aumentado para dar tiempo a leer el mensaje
+}
     
     function lanzarFuegosArtificiales() {
         for (let i = 0; i < 5; i++) {
