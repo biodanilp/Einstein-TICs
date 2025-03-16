@@ -425,7 +425,7 @@ function mostrarCarrera() {
        
     setTimeout(() => {
         recompensa.style.display = "none";
-    }, 15000); // Aumentado para dar tiempo a leer el mensaje
+    }, 30000); // Aumentado para dar tiempo a leer el mensaje
 }
     
     function lanzarFuegosArtificiales() {
