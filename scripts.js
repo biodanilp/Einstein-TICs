@@ -429,7 +429,7 @@ function mostrarCarrera() {
         mensajeRecompensa.className = "mensaje-recompensa";
         mensajeRecompensa.innerHTML = "¡Asombroso! Has completado este desafío con éxito. Corre a reclamar tu obsequio con Selenne y regresa listo para enfrentar el último reto";
         carrera.appendChild(mensajeRecompensa);
-    }, 1500);
+    }, 15000);
     
     setTimeout(() => {
         recompensa.style.display = "none";
