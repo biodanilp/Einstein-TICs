@@ -433,7 +433,7 @@ function mostrarCarrera() {
     
     setTimeout(() => {
         recompensa.style.display = "none";
-    }, 6000); // Aumentado para dar tiempo a leer el mensaje
+    }, 15000); // Aumentado para dar tiempo a leer el mensaje
 }
     
     function lanzarFuegosArtificiales() {
