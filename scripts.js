@@ -405,14 +405,14 @@ function mostrarCarrera() {
     // Iniciar animación
     const animacionId = setInterval(animarCarrera, 50);
     
-   function celebrarVictoria() {
+  function celebrarVictoria() {
     // Animar nave ganadora
     naveJugador.classList.add("ganador");
     
     // Crear mensaje de victoria
     const mensaje = document.createElement("div");
     mensaje.className = "mensaje-victoria";
-    mensaje.innerHTML = "¡Has ganado la carrera! Has completado este desafío con éxito. Corre a reclamar tu obsequio con Selenne y regresa listo para enfrentar el último reto";
+    mensaje.innerHTML = "¡Has ganado la carrera!";
     carrera.appendChild(mensaje);
     
     // Reproducir sonido de victoria
@@ -422,7 +422,15 @@ function mostrarCarrera() {
     
     // Mostrar fuegos artificiales
     lanzarFuegosArtificiales();
-       
+    
+    // Añadir mensaje de recompensa
+    setTimeout(() => {
+        const mensajeRecompensa = document.createElement("div");
+        mensajeRecompensa.className = "mensaje-recompensa";
+        mensajeRecompensa.innerHTML = "¡Asombroso! Has completado este desafío con éxito. Corre a reclamar tu obsequio con Selenne y regresa listo para enfrentar el último reto";
+        carrera.appendChild(mensajeRecompensa);
+    }, 15000);
+    
     setTimeout(() => {
         recompensa.style.display = "none";
     }, 30000); // Aumentado para dar tiempo a leer el mensaje
