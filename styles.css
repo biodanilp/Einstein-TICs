@@ -190,6 +190,17 @@ button:hover {
     z-index: 1001;
 }
 
+.mensaje-recompensa {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #ff9800;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    animation: aparecer 0.5s forwards;
+    max-width: 300px;
+    margin: 15px auto 0;
+}
 @keyframes caerBloque {
     from { transform: translateY(100px); }
     to { transform: translateY(0); }
