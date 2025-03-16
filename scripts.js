@@ -103,18 +103,18 @@ function mostrarRecompensa(tipo) {
 }
 
 // Funciones de recompensas (animaciones)
-// Modify the mostrarConstruccion function to include the notification
 function mostrarConstruccion() {
     const recompensa = document.getElementById("recompensaSuma");
     const construccion = document.getElementById("construccionEdificio");
     recompensa.style.display = "flex";
     construccion.innerHTML = "";
     
-    // Create building components (same as before)
+    // Crear base del edificio
     const base = document.createElement("div");
     base.className = "edificio-base";
     construccion.appendChild(base);
     
+    // Añadir bloques con animación secuencial
     const totalBloques = 5;
     
     for (let i = 0; i < totalBloques; i++) {
@@ -123,7 +123,7 @@ function mostrarConstruccion() {
             bloque.className = "bloque";
             bloque.style.bottom = `${i * 40 + 20}px`;
             
-            // Add windows
+            // Añadir ventanas al bloque
             for (let j = 0; j < 3; j++) {
                 const ventana = document.createElement("div");
                 ventana.className = "ventana";
@@ -133,12 +133,12 @@ function mostrarConstruccion() {
             
             construccion.appendChild(bloque);
             
-            // Play sound
+            // Reproducir sonido
             const sonido = new Audio('https://assets.mixkit.co/active_storage/sfx/211/211-preview.mp3');
             sonido.volume = 0.2;
             sonido.play().catch(e => console.log("Audio no pudo reproducirse: ", e));
             
-            // Add roof at the end
+            // Añadir techo al final
             if (i === totalBloques - 1) {
                 setTimeout(() => {
                     const techo = document.createElement("div");
@@ -146,17 +146,8 @@ function mostrarConstruccion() {
                     techo.style.bottom = `${totalBloques * 40 + 20}px`;
                     construccion.appendChild(techo);
                     
-                    // Show celebration with confetti
+                    // Mostrar mensaje de felicitación con confeti
                     mostrarConfeti();
-                    
-                    // Add the notification message
-                    setTimeout(() => {
-                        mostrarNotificacion("¡Increíble! Has construido un magnífico edificio. Ahora, ve con Andrea para reclamar un delicioso caramelo y prepárate para enfrentar nuevos retos");
-                    }, 1000);
-                    
-                    // Mark this challenge as completed
-                    localStorage.setItem("retoSumaCompletado", "true");
-                    verificarTodosRetosCompletados();
                 }, 500);
             }
         }, i * 600);
@@ -164,9 +155,23 @@ function mostrarConstruccion() {
 
     setTimeout(() => {
         recompensa.style.display = "none";
-    }, 8000);  // Extended time to allow reading the notification
+    }, 5000);
 }
 
+function mostrarConfeti() {
+    for (let i = 0; i < 50; i++) {
+        const confeti = document.createElement("div");
+        confeti.className = "confeti";
+        confeti.style.left = `${Math.random() * 100}%`;
+        confeti.style.animationDuration = `${Math.random() * 2 + 1}s`;
+        confeti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.body.appendChild(confeti);
+        
+        setTimeout(() => {
+            confeti.remove();
+        }, 3000);
+    }
+}
 function mostrarLaberinto() {
     const recompensa = document.getElementById("recompensaResta");
     const laberinto = document.getElementById("laberintoPirata");
@@ -386,19 +391,7 @@ function mostrarCarrera() {
             
             setTimeout(() => {
                 propulsion.remove();
-            }, 500); // Add notification for multiplication challenge
-        setTimeout(() => {
-            mostrarNotificacion("¡Asombroso! Has completado este desafío con éxito. Corre a reclamar tu obsequio con Selenne y regresa listo para enfrentar el último reto");
-        }, 1500);
-        
-        // Mark this challenge as completed
-        localStorage.setItem("retoMultiplicacionCompletado", "true");
-        verificarTodosRetosCompletados();
-        
-        setTimeout(() => {
-            recompensa.style.display = "none";
-        }, 8000);  // Extended time to allow reading the notification
-    }
+            }, 500);
         }
     }
     
@@ -606,89 +599,6 @@ function mostrarCelebracion() {
     mensaje.className = "mensaje-celebracion";
     mensaje.textContent = "¡Felicidades! ¡Has encontrado todas las parejas!";
     memoria.appendChild(mensaje);
-}
-// Function to display notifications
-function mostrarNotificacion(mensaje) {
-    // Create notification element
-    const notificacion = document.createElement("div");
-    notificacion.className = "notificacion";
-    notificacion.textContent = mensaje;
-    document.body.appendChild(notificacion);
-    
-    // Remove notification after some time
-    setTimeout(() => {
-        notificacion.classList.add("desvanecer");
-        setTimeout(() => {
-            notificacion.remove();
-        }, 1000);
-    }, 6000);
-}
-
-// Function to check if all challenges are completed
-function verificarTodosRetosCompletados() {
-    const sumaCompletado = localStorage.getItem("retoSumaCompletado") === "true";
-    const restaCompletado = localStorage.getItem("retoRestaCompletado") === "true";
-    const multiplicacionCompletado = localStorage.getItem("retoMultiplicacionCompletado") === "true";
-    const divisionCompletado = localStorage.getItem("retoDivisionCompletado") === "true";
-    
-    if (sumaCompletado && restaCompletado && multiplicacionCompletado && divisionCompletado) {
-        setTimeout(() => {
-            mostrarMensajeFinal("¡FELICIDADES! Has completado todos los retos matemáticos. ¡Eres un verdadero genio de las matemáticas!");
-        }, 3000);
-    }
-}
-
-// Function to show final message
-function mostrarMensajeFinal(mensaje) {
-    // Create overlay
-    const overlay = document.createElement("div");
-    overlay.className = "mensaje-final-overlay";
-    
-    // Create message container
-    const contenedor = document.createElement("div");
-    contenedor.className = "mensaje-final-contenedor";
-    
-    // Create message
-    const texto = document.createElement("p");
-    texto.textContent = mensaje;
-    
-    // Create close button
-    const boton = document.createElement("button");
-    boton.textContent = "¡Genial!";
-    boton.onclick = () => {
-        overlay.classList.add("desvanecer");
-        setTimeout(() => {
-            overlay.remove();
-        }, 1000);
-    };
-    
-    // Assemble elements
-    contenedor.appendChild(texto);
-    contenedor.appendChild(boton);
-    overlay.appendChild(contenedor);
-    document.body.appendChild(overlay);
-    
-    // Add celebration effects
-    mostrarGranCelebracion();
-}
-
-// Function for grand celebration
-function mostrarGranCelebracion() {
-    // Create lots of confetti
-    for (let i = 0; i < 100; i++) {
-        setTimeout(() => {
-            const confeti = document.createElement("div");
-            confeti.className = "confeti-final";
-            confeti.style.left = `${Math.random() * 100}%`;
-            confeti.style.animationDuration = `${Math.random() * 3 + 2}s`;
-            confeti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            document.body.appendChild(confeti);
-            
-            setTimeout(() => {
-                confeti.remove();
-            }, 5000);
-        }, i * 50);
-    }
 }
 
 // Generar ejercicios al cargar la página
