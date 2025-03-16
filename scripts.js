@@ -102,7 +102,6 @@ function mostrarRecompensa(tipo) {
     else if (tipo === "division") mostrarMemoria();
 }
 
-// Funciones de recompensas (animaciones)
 function mostrarConstruccion() {
     const recompensa = document.getElementById("recompensaSuma");
     const construccion = document.getElementById("construccionEdificio");
@@ -148,11 +147,14 @@ function mostrarConstruccion() {
                     
                     // Mostrar mensaje de felicitación con confeti
                     mostrarConfeti();
-                    // Añadir mensaje personalizado
-                    const mensaje = document.createElement("div");
-                    mensaje.className = "mensaje-personalizado";
-                    mensaje.textContent = "¡Increíble! Has construido un magnífico edificio. Ahora, ve con Andrea para reclamar un delicioso caramelo y prepárate para enfrentar nuevos retos";
-                    recompensa.appendChild(mensaje);
+                    
+                    // Añadir mensaje de recompensa
+                    setTimeout(() => {
+                        const mensajeRecompensa = document.createElement("div");
+                        mensajeRecompensa.className = "mensaje-recompensa";
+                        mensajeRecompensa.innerHTML = "¡Increíble! Has construido un magnífico edificio. Ahora, ve con Andrea para reclamar un delicioso caramelo y prepárate para enfrentar nuevos retos";
+                        construccion.parentNode.appendChild(mensajeRecompensa);
+                    }, 1000);
                 }, 500);
             }
         }, i * 600);
@@ -160,7 +162,7 @@ function mostrarConstruccion() {
 
     setTimeout(() => {
         recompensa.style.display = "none";
-    }, 5000);
+    }, 50000); // Aumenté el tiempo para que el mensaje sea visible
 }
 
 function mostrarConfeti() {
